@@ -1,17 +1,37 @@
-version: 0.2
-phases:
-  install:
-    runtime-versions:
-      python: '3.12'
-      java: openjdk11
-    commands:
-      - pip install --upgrade pip
-      - pip install --upgrade awscli
-      - pip install --upgrade -r requirements.txt
-      - mv const-staging.py const.py
-      - pip install --upgrade Transcrypt
-      - transcrypt -b hobopy-frontend
-      - mkdir -p deploy/__target__
-      - cp -p index.html deploy/
-      - cp -p __target__/*.js deploy/__target__/
+version: 0.2  
+
+env:  
+  variables:  
+    PYTHONPATH: "/tmp/opt/python/site-packages:$PYTHONPATH"  
+
+phases:  
+  install:  
+    runtime-versions:  
+      python: '3.12'  
+      java: openjdk11  
+    commands:  
+      - echo "Starting the install phase..."  
+      - pip install --upgrade pip  
+      - pip install --upgrade awscli  
+      - pip install --upgrade -r requirements.txt  
+      - mv const-staging.py const.py  
+      - pip install --upgrade Transcrypt  
+      - echo "Install phase complete."  
+
+  pre_build:  
+    commands:  
+      - echo "Current PYTHONPATH: $PYTHONPATH"  # PYTHONPATHを表示  
+      - echo "Current working directory:"  
+      - pwd  # 現在の作業ディレクトリを表示  
+      - echo "Files in current directory:"  
+      - ls -la  # 現在のディレクトリ内のファイル一覧を表示  
+
+  build:  
+    commands:   
+      - echo "Starting the build phase..."  
+      - transcrypt -b hobopy-frontend  
+      - mkdir -p deploy/__target__  
+      - cp -p index.html deploy/  
+      - cp -p __target__/*.js deploy/__target__/  
+      - echo "Build phase complete."  
       - aws s3 sync deploy s3://hobopy-frontend-staging-syu
