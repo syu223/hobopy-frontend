@@ -2,9 +2,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: '3.9'
+      python: '3.12'
       java: openjdk11
     commands:
+      - pip install --upgrade pip
       - pip install --upgrade awscli
       - pip install --upgrade -r requirements.txt
       - mv const-staging.py const.py
