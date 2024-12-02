@@ -20,7 +20,7 @@ phases:
 
   pre_build:  
     commands:  
-      - echo "Current PYTHONPATH: $PYTHONPATH"  # PYTHONPATHを表示  
+      - echo "Current PYTHONPATH:$PYTHONPATH"  # PYTHONPATHを表示  
       - echo "Current working directory:"  
       - pwd  # 現在の作業ディレクトリを表示  
       - echo "Files in current directory:"  
