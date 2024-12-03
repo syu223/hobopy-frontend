@@ -8,7 +8,7 @@ phases:
   install:  
     runtime-versions:  
       python: '3.12'  
-      java: openjdk11  
+      java: corretto11  # Amazon Correttoを使用する場合  
     commands:  
       - echo "Starting the install phase..."  
       - pip install --upgrade pip  
@@ -20,11 +20,11 @@ phases:
 
   pre_build:  
     commands:  
-      - echo "Current PYTHONPATH:$PYTHONPATH"  # PYTHONPATHを表示  
+      - echo "Current PYTHONPATH:$PYTHONPATH"  
       - echo "Current working directory:"  
-      - pwd  # 現在の作業ディレクトリを表示  
+      - pwd  
       - echo "Files in current directory:"  
-      - ls -la  # 現在のディレクトリ内のファイル一覧を表示  
+      - ls -la  
 
   build:  
     commands:   
